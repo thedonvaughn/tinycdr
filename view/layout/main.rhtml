@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%=h @title %></title>
+  <!-- <link href="/css/ui.all.css" rel="stylesheet" type="text/css"> -->
+  <script type="text/javascript" src="/js/jquery.js"></script>
+  <!-- <script type="text/javascript" src="/js/ui.core.js"></script> -->
+  <!-- <script type="text/javascript" src="/js/ui.datepicker.js"></script> -->
+  <script type="text/javascript">
+      $(function() {
+        $("cdrbegin").datepicker();
+        $("cdrend").datepicker();
+      });
+  </script>
+  </head>
+  <body>
+    <h1><%= @title %></h1>
+    <div id="content">
+      <%= @content %>
+    </div>
+  </body>
+</html>

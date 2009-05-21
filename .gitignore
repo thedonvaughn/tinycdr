@@ -1,0 +1,6 @@
+.*
+log/*
+db/*.db
+RIDE*
+script/*
+tasks/*.rb

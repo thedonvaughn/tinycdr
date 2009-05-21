@@ -1,0 +1,46 @@
+=========================================================
+TinyCDR
+Copyright (c) 2009 The Rubyists (Jayson Vaughn, Tj Vanderpoel, Michael Fellinger, Kevin Berry)
+Distributed under the terms of the MIT License.
+==========================================================
+
+ABOUT
+-----
+A tiny and simple "FreeSWITCH" (http://www.freeswitch.org) CDR reporting application.
+Designed with Ramaze (http://www.ramaze.net) and Sequel (http://sequel.rubyforge.org), written in Ruby 
+
+ -- BETA: Still under development --
+
+
+REQUIREMENTS
+------------
+* ruby (>= 1.8)
+* Ramaze (2009.05)
+* Innate (2009.05)
+
+USAGE
+-----
+
+1) Setup a database to store FreeSWITCH CDR information.
+
+2) Run sequel migration from root of TinyCDR application:
+  * sequel 'postgres://tinycdr:awesome_pass@DBSERVER/database' -m db/migrate
+
+  * NOTE:  Change the URI (postgres://tinycdr:awesome_pass@DBSERVER/database) to match your database of course.
+           Check http://sequel.rubyforge.org for help
+
+3) Deploy TinyCDR with your prefered Ramaze depolyment methodolies.  (mod_rack, fcgi, mongrel cluster, etc etc)
+   http://www.ramaze.net for more details.
+   * To just start up you can issue 'ramaze start' in TinyCDR root dir.   This should start TinyCDR at "http://localhost:7000"
+
+4) Now to configure FreeSwitch to use xml_cdr.  From within Freeswitch's root;
+   edit conf/autoload_configs/modules.conf.xml and enable mod_xml_cdr
+
+5) Now edit conf/autoload_configs/xml_cdr_conf.xml.  
+   Uncomment the 4th line starting with '<param name="url" value=....'.  Insert http://address.to.tinycdr.com/cdr/post for value.
+   For example if you deployed TinyCDR by just issuing 'ramaze start' then your line should look like:
+   <param name="url" value="http://localhost:7000/cdr/post"/>
+
+6) Restart FreeSWITCH
+
+7) Now go to TinyCDR in your browser (http://localhost:7000 if you simply issue 'ramaze start').  Your CDR information should be available in realtime now.  
