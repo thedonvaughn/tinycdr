@@ -1,3 +1,7 @@
+<% if @calls_paginated.page_count > 1 %>
+<%= @calls_paginated.navigation %>
+<% end %>
+
 <div class="rounded">
   <table>
     <tr>
@@ -12,7 +16,7 @@
       <th>Duration</th>
       <th>Bill Secs</th>
     </tr>
-    <% @calls.each do |call| %>
+    <% @calls_paginated.each do |call| %>
     <tr>
       <td><%= call.username %></td>
       <td><%= call.caller_id_number %></td>

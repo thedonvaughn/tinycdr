@@ -17,6 +17,7 @@ REQUIREMENTS
 * ruby (>= 1.8)
 * Ramaze (2009.05)
 * Innate (2009.05)
+* Sequel (3.0)
 * Erubis
 
 USAGE

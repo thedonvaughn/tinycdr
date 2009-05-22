@@ -8,6 +8,7 @@
 class MainController < Controller
   layout :main
   helper :xhtml
+  helper :paginate
   engine :Erubis
 
   # the index action is called automatically when no other action is specified
@@ -32,6 +33,7 @@ class MainController < Controller
     else
       @calls = Call.all
     end
+    @calls_paginated = paginate(@calls, :limit => 25) 
     @title = "TinyCDR"
   end
 
