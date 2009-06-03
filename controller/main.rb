@@ -18,18 +18,25 @@ class MainController < Controller
   end
 
   def user_report
-    puts request
     username, phone_num = request["username"], request["phone_num"]
+    date_start = request["date_start"] + " 00:00"
+    date_end = request["date_end"] + " 23:59" 
     filter = false
     conditionals = 'username = ? or caller_id_number = ? or destination_number = ?'
-    # Search by username and phone number
-    filter = ["(#{conditionals}) and (#{conditionals})", username, username, username, phone_num, phone_num, phone_num] unless username.empty? or phone_num.empty? or username.nil? or phone_num.nil?
+    time_range = 'start_stamp >= ? and start_stamp <= ?'
+
+    # Search by date only
+    filter = [time_range, date_start, date_end] if (username.empty? and phone_num.empty?) or (username.nil? and phone_num.nil?)
     # Search by username only
-    filter = [conditionals, username, username, username] unless username.empty? or username.nil?
+    filter = ["(#{conditionals}) and (#{time_range})", username, username, username, date_start, date_end] unless username.empty? or username.nil?
     # Search by phone number only
-    filter = [conditionals, phone_num, phone_num, phone_num] unless phone_num.empty? or phone_num.nil?
+    filter = ["(#{conditionals}) and (#{time_range})", phone_num, phone_num, phone_num, date_start, date_end] unless phone_num.empty? or phone_num.nil?
+    # Search by username and phone number
+    filter = ["(#{conditionals}) and (#{conditionals}) and (#{time_range})", username, username, username, phone_num, phone_num, phone_num, date_start, date_end] unless username.empty? or phone_num.empty? or username.nil? or phone_num.nil?
+
     if filter
-      @calls = Call.filter(filter)
+      calls = Call.filter(filter)
+      @calls = calls.to_a
     else
       @calls = Call.all
     end
