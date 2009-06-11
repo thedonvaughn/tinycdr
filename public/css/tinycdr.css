@@ -112,4 +112,4 @@ div.comment p {
 }
 
 th { border-bottom: 1px solid #666666;}
-td { text-align: center; border: 1px groove;}
+td { text-align: center; /* border: 1px groove; */}
