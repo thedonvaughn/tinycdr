@@ -2,12 +2,15 @@
 # Distributed under the terms of the MIT license.
 # The full text can be found in the LICENSE file included with this software
 #
-require 'pathname'
-require 'model/init'
+require File.expand_path("../../lib/tiny_cdr", __FILE__)
+require TinyCDR::LIBROOT/:tiny_cdr/:db
+
 require 'sequel/extensions/migration'
+
 desc "migrate to latest version of db"
 task :migrate do
-  TINYCDR_ROOT = 'db/migrate'
-  puts TINYCDR_ROOT.to_s
-  Sequel::Migrator.run(DB, TINYCDR_ROOT.to_s)
+    raise "No DB found" unless TinyCDR.db
+      require TinyCDR::ROOT/:model/:init
+      Sequel::Migrator.apply(TinyCDR.db, TinyCDR::MIGRATION_ROOT)
 end
+

@@ -1,8 +1,5 @@
-require 'ramaze'
-require 'ramaze/spec'
-
-require __DIR__('../start')
-Ramaze.options.roots = __DIR__('../')
+require File.expand_path('../../db_helper', __FILE__)
+require TinyCDR::SPEC_HELPER_PATH/:directory_data
 
 SAMPLE_XML = %q{<?xml version="1.0"?>
 <cdr>
@@ -213,13 +210,22 @@ SAMPLE_XML = %q{<?xml version="1.0"?>
 </cdr>
 }
 
-describe CdrController do
-  behaves_like :mock
-
-  should 'show allow an XML post' do
-    post('/cdr/post', {:cdr => SAMPLE_XML}).status.should == 200
-    last_response['Content-Type'].should == 'text/html'
-    last_response.should =~ /New call from/
+describe TinyCDR do
+  
+  def tinycdr_factory
+    TinyCDR::ScrubXML.new(SAMPLE_XML)
   end
+
+  should 'be able to read an XML document' do
+    xml_doc = tinycdr_factory
+    xml_doc.class.should.equal TinyCDR::ScrubXML
+  end
+
+  should 'be able to request CDR info from XML' do
+    xml_doc = tinycdr_factory
+    xml_doc.request_cdr_info
+    xml_doc.username.should.equal "1000"
+  end
+
 end
 

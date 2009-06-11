@@ -1,5 +1,7 @@
 require 'sequel'
 require 'sequel/extensions/migration'
+require 'lib/tiny_cdr'
+require TinyCDR::LIBROOT/:tiny_cdr/:db
 
 class CallsTable < Sequel::Migration
   def up
@@ -15,10 +17,10 @@ class CallsTable < Sequel::Migration
       timestamp :end_stamp, :null => false
       varchar :duration, :size => 12
       varchar :billsec, :size => 12
-    end unless DB.tables.include?(:calls)
+    end unless TinyCDR.db.tables.include?(:calls)
   end
 
   def down
-    drop_table :calls if DB.tables.include?(:calls)
+    drop_table :calls if TinyCDR.db.tables.include?(:calls)
   end
 end

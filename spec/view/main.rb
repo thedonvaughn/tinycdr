@@ -1,8 +1,5 @@
-require 'ramaze'
-require 'ramaze/spec'
-
-require __DIR__('../start')
-Ramaze.options.roots = __DIR__('../')
+require File.expand_path('../../db_helper', __FILE__)
+require TinyCDR::SPEC_HELPER_PATH/:directory_data
 
 describe MainController do
   behaves_like :mock
