@@ -17,9 +17,9 @@ class CallsTable < Sequel::Migration
       timestamp :end_stamp, :null => false
       varchar :duration, :size => 12
       varchar :billsec, :size => 12
-      varchar :data1
-      varchar :data2
-      varchar :data3
+      String :data1
+      String :data2
+      String :data3
     end unless TinyCDR.db.tables.include?(:calls)
   end
 
