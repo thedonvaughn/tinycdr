@@ -3,7 +3,7 @@ require 'rexml/document'
 module TinyCDR
   class ScrubXML
     include REXML
-    attr_reader :doc, :username, :caller_id_number, :caller_id_name, :destination_number, :channel, :context, :start_stamp, :end_stamp, :duration, :billsec
+    attr_reader :doc, :username, :caller_id_number, :caller_id_name, :destination_number, :channel, :context, :start_stamp, :end_stamp, :duration, :billsec 
 
     def initialize(xml_doc)
       @doc = Document.new(xml_doc)
