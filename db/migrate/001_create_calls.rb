@@ -7,10 +7,10 @@ class CallsTable < Sequel::Migration
   def up
     create_table :calls do 
       primary_key :id
-      varchar :username, :size => 32
-      varchar :caller_id_number, :size => 32
-      varchar :caller_id_name, :size => 32
-      varchar :destination_number, :size => 32, :null => false
+      String :username
+      String :caller_id_number
+      String :caller_id_name
+      String :destination_number, :null => false
       varchar :channel, :null => false
       varchar :context, :null => false
       timestamp :start_stamp, :null => false

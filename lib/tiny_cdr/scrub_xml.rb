@@ -3,7 +3,7 @@ require 'rexml/document'
 module TinyCDR
   class ScrubXML
     include REXML
-    attr_reader :doc, :username, :caller_id_number, :caller_id_name, :destination_number, :channel, :context, :start_stamp, :end_stamp, :duration, :billsec, :innercalls_exten, :ring_to
+    attr_reader :doc, :username, :caller_id_number, :caller_id_name, :destination_number, :channel, :context, :start_stamp, :end_stamp, :duration, :billsec, :innercalls_exten, :direction
 
     def initialize(xml_doc)
       @doc = Document.new(xml_doc)
@@ -22,7 +22,7 @@ module TinyCDR
       @duration = @doc.root.elements["variables/duration"][0].to_s
       @billsec = @doc.root.elements["variables/billsec"][0].to_s
       @innercalls_exten = @doc.root.elements["variables/innercalls_exten"][0].to_s if @doc.root.elements["variables/innercalls_exten"]
-      @ring_to = @doc.root.elements["variables/ring_to"][0].to_s if @doc.root.elements["variables/ring_to"]
+      @direction = @doc.root.elements["variables/call_direction"][0].to_s if @doc.root.elements["variables/call_direction"]
     end
   end
 end
